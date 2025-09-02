@@ -21,7 +21,7 @@ constexpr int dx[4] = {1, 0, -1, 0}, dy[4] = {0, 1, 0, -1};
 
 int ans(int n, bool out) {
     vector<int> deck(n);
-    iota(deck.begin(), deck.end(), 1);   
+    iota(deck.begin(), deck.end(), 1);
     vector<int> original = deck;
     int count = 0;
 
