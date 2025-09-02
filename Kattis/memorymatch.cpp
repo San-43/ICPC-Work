@@ -29,17 +29,58 @@ void solve() {
     cin >> n;
     int k;
     cin >> k;
-    map<string, int> m;
-    int ans = 0;
-    while(k--) {
+
+    unordered_map<string, int> ones;   
+    unordered_set<string> twos;       
+    int total = n;
+
+    for (int i = 0; i < k; i++) {
         int x, y;
-        cin >> x >> y;
         string s, s1;
-        cin >> s >> s1;
-        
+        cin >> x >> y >> s >> s1;
 
+        if (s == s1) {
+            if (twos.count(s)) {
+                twos.erase(s);
+            } else if (ones.count(s)) {
+                ones.erase(s);
+                total -= 1;
+            } else {
+                total -= 2; 
+            }
+        } else {
+            if (ones.count(s)) {
+                if (ones[s] != x) {
+                    ones.erase(s);
+                    twos.insert(s);
+                    total -= 1; 
+                }
+            } else if (!twos.count(s)) {
+                ones[s] = x;
+                total -= 1;
+            }
 
+            if (ones.count(s1)) {
+                if (ones[s1] != y) {
+                    ones.erase(s1);
+                    twos.insert(s1);
+                    total -= 1;
+                }
+            } else if (!twos.count(s1)) {
+                ones[s1] = y;
+                total -= 1;
+            }
+        }
     }
+
+    int ans = (int)twos.size();
+    if (total == 2 && ones.empty()) {
+        ans += 1;
+    } else if (total == (int)ones.size()) {
+        ans += total;
+    }
+
+    cout << ans << '\n';
 }
 
 int main() {
