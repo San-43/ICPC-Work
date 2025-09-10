@@ -25,8 +25,31 @@ constexpr int MxN = 2e5 + 5;
 constexpr int dx[4] = {1, 0, -1, 0}, dy[4] = {0, 1, 0, -1};
 
 void solve() {
-    int n;
-    cin >> n;
+    int n, m;
+    cin >> n >> m;
+    vi v(n);
+    double avrn = 0.0;
+    double avrm = 0.0;
+    for(int i = 0; i<n; i++) {
+        cin >> v[i];
+        avrn += v[i];
+    }
+    for(int i = 0; i<m; i++) {
+        ll x;
+        cin >> x;
+        avrm += x;
+    }
+    ll tmpn = avrn;
+    ll tmpm = avrm;
+    avrn /= n;
+    avrm /= m;
+    int ans = 0;
+    for (int i = 0; i < n; i++) {
+        if(v[i] > avrm && v[i] < avrn) {
+            ans++;
+        }
+    }
+    cout << ans << edl;
 }
 
 int main() {
@@ -34,6 +57,7 @@ int main() {
     cin.tie(nullptr);
 
     int t = 1;
+    cin >> t;
     while (t--) {
         solve();
     }
