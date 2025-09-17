@@ -24,9 +24,27 @@ constexpr int MOD = 1e9 + 7;
 constexpr int MxN = 2e5 + 5;
 constexpr int dx[4] = {1, 0, -1, 0}, dy[4] = {0, 1, 0, -1};
 
+struct p
+{   
+    int x;
+    int y;
+};
+
+int distance(p p1, p p2) {
+    return static_cast<int>(sqrt((pow((p1.x - p2.x), 2)) + pow((p1.y - p2.y), 2)));
+}
+
 void solve() {
     int n;
     cin >> n;
+    vector<p> v(n);
+    while(n--) {
+        int x, y;
+        cin >> x >> y;
+        v.emplace_back(x,y);
+    }
+    
+
 }
 
 int main() {
