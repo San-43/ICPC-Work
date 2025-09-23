@@ -25,25 +25,54 @@ constexpr int MxN = 2e5 + 5;
 constexpr int dx[4] = {1, 0, -1, 0}, dy[4] = {0, 1, 0, -1};
 
 struct p
-{   
-    int x;
-    int y;
+{
+    ll x;
+    ll y;
 };
-
-int distance(p p1, p p2) {
-    return static_cast<int>(sqrt((pow((p1.x - p2.x), 2)) + pow((p1.y - p2.y), 2)));
-}
 
 void solve() {
     int n;
     cin >> n;
-    vector<p> v(n);
-    while(n--) {
-        int x, y;
-        cin >> x >> y;
-        v.emplace_back(x,y);
+    vector<p> v;
+    for (int i = 0; i < n; i++) {
+        ll x, y; cin >> x >> y;
+        v.push_back({x, y});
     }
-    
+
+    vi d(n);
+    for (int i = 1; i < n; i++) {
+        d[i] = llabs(v[i-1].x - v[i].x) + llabs(v[i-1].y - v[i].y);
+    }
+
+    ll c = 0;
+    ll lb = -LLINF;
+    ll ub = LLINF;
+
+    for(int i = 1; i < n; i++) {
+        
+        if(i & 1) {
+            lb = max(lb, 1 - c);
+        } else {
+            ub = min(ub, c - 1);
+        }
+
+        if(i & 1) {
+            ub = min(ub, d[i] - 1 - c);
+        } else {
+            lb = max(lb, c - d[i] + 1);
+        }
+
+        c = d[i] - c;
+    }
+
+    if (n & 1) lb = max(lb, 1 - c);
+    else ub = min(ub, c - 1);
+
+    if(lb <= ub) {
+        cout << ub << edl;
+    } else {
+        cout << -1 << edl;
+    }
 
 }
 
