@@ -29,35 +29,27 @@ void solve() {
     cin >> n >> m;
     ll sum = 0;
     ll b = 0;
-    ll l = 0;
-    ll r = 0;
-    
+    int l = m;
+    int r = -1;
+
     for (int i = 0; i < n; i++) {
-        bool fl = false;
-        l = 0;
-        r = 0;
         for (int j = 0; j < m; j++) {
             char c;
             cin >> c;
 
             if (c != '.') {
                 b += 1;
-                sum += 2*j + 1;
-                if (!fl) {
-                    l = j;
-                    fl = true;
-                } else {
-                    r = j;
+                sum += 2LL*j + 1;
+                if (i == n - 1) {
+                    l = min(l, j);
+                    r = max(r, j);
                 }
             }
         }
     }
-
-    ll x = sum / (2 * b);
-
-    if (x < l)
+    if (sum < 2*b*l)
         cout << "left" << edl;
-    else if (x > r + 1)
+    else if (sum > 2*b * (r + 1))
         cout << "right" << edl;
     else
         cout << "balanced" << edl;
