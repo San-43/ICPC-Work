@@ -24,10 +24,22 @@ constexpr int MOD = 1e9 + 7;
 constexpr int MxN = 2e5 + 5;
 constexpr int dx[4] = {1, 0, -1, 0}, dy[4] = {0, 1, 0, -1};
 
+ll pw(ll a, ll b) {
+    ll ans = 1;
+    while (b) {
+        if (b & 1)
+            ans = (ans * a) % MOD;
+        a = (a * a) % MOD;
+        b >>= 1;
+    }
+    return ans;
+}
+
+
 void solve() {
-    int n;
+    ll n;
     cin >> n;
-    cout << 8 * pow(9, n - 1);
+    cout << ((8 * pw(9, n-1)) % MOD) << edl;
 }
 
 int main() {
@@ -35,6 +47,7 @@ int main() {
     cin.tie(nullptr);
 
     int t = 1;
+    cin >> t;
     while (t--) {
         solve();
     }
