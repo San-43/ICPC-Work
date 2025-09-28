@@ -25,8 +25,38 @@ constexpr int MxN = 2e5 + 5;
 constexpr int dx[4] = {1, 0, -1, 0}, dy[4] = {0, 1, 0, -1};
 
 void solve() {
-    int n;
-    cin >> n;
+    int n, q;
+    cin >> n >> q;
+    vector<int> v(n);
+    for(int i = 0; i < n; i++) {
+        cin >> v[i];
+    }
+    
+    int s = sqrt(n);
+    vector<int> b(n);
+    for(int i = 0; i < n; i += s) {
+        b[i / s] = *max_element(v.begin() + i, v.begin() + i + s);
+    }
+
+    int ans = 0;
+    while(q--) {
+        int l, r;
+        cin >> l >> r;
+        int tmp = l;
+        tmp--;
+        r--;
+        int val = INT_MIN;
+        while(tmp < r) {
+            if(tmp % s == 0 && tmp + s <= r) {
+                val = max(val, b[tmp / s]);
+                tmp += s;
+            } else {
+                val = max(val, v[tmp++]);
+            }
+        }
+        if(val <= v[l-1]) ans++;
+    }
+    cout << ans << edl;
 }
 
 int main() {
