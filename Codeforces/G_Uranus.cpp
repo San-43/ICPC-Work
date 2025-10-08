@@ -30,7 +30,6 @@ void solve() {
     vi x(n);
     vi y(n);
     vi c(n);
-    
 }
 
 int main() {
