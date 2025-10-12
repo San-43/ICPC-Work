@@ -13,11 +13,6 @@ using vi = vector<ll>;
 #define pb push_back
 #define edl '\n'
 
-template <typename T>
-void fill_seq(vector<T> &v, T start = 1) {
-    iota(v.begin(), v.end(), start);
-}
-
 constexpr long long LLINF = 2e18;
 constexpr int INF = 2e9;
 constexpr int MOD = 1e9 + 7;
@@ -27,29 +22,6 @@ constexpr int dx[4] = {1, 0, -1, 0}, dy[4] = {0, 1, 0, -1};
 void solve() {
     int n;
     cin >> n;
-    int l = -INF;
-    int r = INF;
-
-    for(int i = 0; i < n; i++) {
-        int c, d;
-        cin >> c >> d;
-        if(d == 1) {
-            l = max(l, (int)1900);
-        } else {
-            r = min(r, (int)1899);
-        }
-
-        l += c;
-        r += c;
-    }
-    
-    if(r < l) {
-        cout << "Impossible" << edl;
-    } else if(r > 5e8) {
-        cout << "Infinity" << edl;
-    } else {
-        cout << r << edl;
-    }
 }
 
 int main() {
