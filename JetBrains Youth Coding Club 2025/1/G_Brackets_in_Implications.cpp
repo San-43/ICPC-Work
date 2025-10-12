@@ -28,71 +28,60 @@ void solve() {
     int n;
     cin >> n;
     vector<int> v(n);
-    for(auto &e : v) cin >> e;
+    for (auto &e : v)
+        cin >> e;
 
-    if(v[n - 1] == 1) {
+    if (v[n - 1] == 1) {
         cout << "NO" << edl;
         return;
     }
 
     if (n == 1) {
-        cout << "YES" << edl << 0 << edl;
-        return;
-    } else if (n == 2) {
-        if(v[0] == 1) cout << "YES\n" << 1  << "->" << 0 << edl;
-        else cout << "NO\n";
+        cout << "YES" << edl;
+        cout << 0 << edl;
         return;
     }
-    
+
     if (v[n - 2] == 1) {
         cout << "YES" << edl;
-        for(int i = 0; i < n; i++) {
-            if(i != n - 1) {
-                cout << v[i] << "->";
-            } else {
-                cout << v[i] << edl;
-            }
+        for (int i = 0; i < n; i++) {
+            cout << v[i];
+            if (i < n - 1)
+                cout << "->";
         }
-    } else if (v[n - 2] == 0 && v[n - 3] == 0) {
-        cout << "YES" << edl;
-        for(int i = 0; i < n - 2; i++) {
-            if(i == n - 3) {
-                cout << "(" << v[i] << "->" << v[i+1] << ")" << "->" << v[i + 2] << edl;
-                break;
-            } else {
-                cout << v[i] << "->";
-            }
-        }
-    } else {
-        bool ok = false;
-        int l = 0;
-        for(int i = n - 3; i >= 0; i--) {
-            if(v[i] == 0) {
-                ok = true;
-                l = i;
-                break;
-            }
-        }
-
-        if(!ok) {
-            cout << "NO\n";
-        } else {
-            for(int i = 0; i < n; i++) {
-
-                if(i == l) {
-                    cout << "((" << 0 << ")" << "->" << "(";
-                    while(i < n-4) {
-                        cout << 1 << "->";
-                        i++;
-                    }
-                    cout << "1))" << "->" << 0 << edl;
-                    return;
-                } else {
-                    cout << v[i] << "->";
-                }
-            }
-        }
+        cout << edl;
+        return;
     }
+
+    if(n >= 3 && v[n - 3] == 0) {
+        cout << "YES" << edl;
+        for(int i = 0; i < n; i++) {
+            if(i == n - 3) cout << "(";
+            cout << v[i];
+            if(i == n - 2) cout << ")";
+            if(i < n - 1) cout << "->";
+        }
+        cout << edl;
+        return;
+    }
+
+    int l = n - 3;
+    while(l >= 0 && v[l] == 1) l--;
+
+    if (l < 0) {
+        cout << "NO\n";
+        return;
+    }
+    cout << "YES" << edl;
+    for (int i = 0; i < n; i++) {
+        if(i == l) cout << "(";
+        if(i == l + 1) cout << "((";
+        cout << v[i];
+        if(i == n - 3) cout << ")";
+        if(i == n - 2) cout << "))";
+        if(i < n - 1) cout << "->";
+    }
+    cout << edl;
 }
 
 int main() {
