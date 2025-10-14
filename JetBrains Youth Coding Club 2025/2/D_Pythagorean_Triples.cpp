@@ -25,27 +25,18 @@ constexpr int MxN = 2e5 + 5;
 constexpr int dx[4] = {1, 0, -1, 0}, dy[4] = {0, 1, 0, -1};
 
 void solve() {
-    int n;
+    ll n;
     cin >> n;
-    vector<int> v(n);
-    int total = 0;
-    for(int i = 0; i < n; i++) {
-        cin >> v[i];
-        total += v[i];
+    if(n <= 2) {
+        cout << -1 << edl;
+        return;
     }
-    int x, y;
-    cin >> x >> y;
 
-    int sum = 0;
-    for(int i = 0; i < n; i++) {
-        if (sum >= x && total - sum <= y && total - sum >= x && sum <= y) {
-            cout << i + 1 << edl;
-            return;
-        }
-        sum += v[i];
-        
+    if(n & 1) {
+        cout << ((n*n - 1) / 2) << " " << ((n*n + 1) / 2) << edl;
+    } else {
+        cout << ((n*n)/4 - 1) << " " << ((n*n)/4 + 1) << edl;
     }
-    cout << 0 << endl;
 }
 
 int main() {

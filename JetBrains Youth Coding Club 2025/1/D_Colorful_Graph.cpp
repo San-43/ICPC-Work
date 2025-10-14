@@ -22,35 +22,7 @@ constexpr int dx[4] = {1, 0, -1, 0}, dy[4] = {0, 1, 0, -1};
 void solve() {
     int n, m;
     cin >> n >> m;
-
-    vector<int> v(m);
-    for(auto &e : v) cin >> e;
-
-    vector<pair<int, int>> c;
-    ll s = 0;
-    for(int i = 0; i < m; i++) {
-        int x = min(v[i], n / 2);
-        c.emplace_back(x, i);
-        s += x;
-    }
-    sort(c.rbegin(), c.rend());
-    if(s < n) {
-        cout << -1 << edl;
-        return;
-    }
-
-    vector<int> ans(n);
-    int x = 0;
-    int j = 0;
-    for(int i = 0; i < n; i++) {
-        if(!(n&1) && i == n / 2) x++;
-        c[j].first--;
-        ans[x] = c[j].second;
-        if(c[j].first == 0) j++;
-        x = (x + 2) % n;
-    }
-    for(auto x : ans) cout << x + 1 << " ";
-    cout << edl;
+    
 }
 
 int main() {

@@ -27,25 +27,26 @@ constexpr int dx[4] = {1, 0, -1, 0}, dy[4] = {0, 1, 0, -1};
 void solve() {
     int n;
     cin >> n;
-    vector<int> v(n);
-    int total = 0;
-    for(int i = 0; i < n; i++) {
+    vi v(n + 1);
+    for (int i = 0; i < n; i++) {
         cin >> v[i];
-        total += v[i];
     }
-    int x, y;
-    cin >> x >> y;
 
-    int sum = 0;
-    for(int i = 0; i < n; i++) {
-        if (sum >= x && total - sum <= y && total - sum >= x && sum <= y) {
-            cout << i + 1 << edl;
-            return;
+    int i = 0, j = n - 1;
+    ll ta = 0, tb = 0;
+    int a = 0, b = 0;
+
+    while (i <= j) {
+        if (ta <= tb) {           
+            ta += v[i++];
+            ++a;
+        } else {
+            tb += v[j--];
+            ++b;
         }
-        sum += v[i];
-        
     }
-    cout << 0 << endl;
+
+    cout << a << ' ' << b << "\n";
 }
 
 int main() {
