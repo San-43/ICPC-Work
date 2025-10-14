@@ -22,6 +22,35 @@ constexpr int dx[4] = {1, 0, -1, 0}, dy[4] = {0, 1, 0, -1};
 void solve() {
     int n, m;
     cin >> n >> m;
+    set<int> c;
+    vector<int> v(n);
+    for(auto &e : v) {
+        cin >> e;
+        c.insert(e);
+    }
+
+
+    map<int, set<int>> graph;
+    for(int i = 0; i < m; i++) {
+        int x, y;
+        cin >> x >> y;
+        x--;
+        y--;
+        if(v[x] == v[y]) continue;
+        graph[v[x]].insert(v[y]);
+        graph[v[y]].insert(v[x]);
+    }
+
+    int vmax = -1, ans = -1;
+    for(int a : c) {
+        int tmp = graph[a].size();
+        if(tmp > vmax) {
+            vmax = tmp;
+            ans = a;
+        }
+    }
+
+    cout << ans << edl;
     
 }
 
