@@ -30,22 +30,9 @@ void solve() {
     int i = 0;
     int j = 0;
     vi ans(m);
-    while(i < n && j < m) {
-        if(a[i] < b[j]) {
-            ans[j]++;
-            i++;
-        } else {
-            j++;
-            if(j < m) {
-                ans[j] = ans[j - 1];
-            }
-        }
-    }
-    if(j + 1 < m) {
-        j++;
-        for(; j < m; j++) {
-            ans[j] = ans[j - 1];
-        }
+    for(; j < m; j++) {
+        while(a[i] < b[j] && i < n) i++;
+        ans[j] = i;
     }
     for(auto &e : ans) {
         cout << e << " ";

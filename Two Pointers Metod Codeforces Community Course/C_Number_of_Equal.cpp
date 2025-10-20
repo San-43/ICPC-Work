@@ -20,8 +20,30 @@ constexpr int MxN = 2e5 + 5;
 constexpr int dx[4] = {1, 0, -1, 0}, dy[4] = {0, 1, 0, -1};
 
 void solve() {
-    int n;
-    cin >> n;
+    int n, m;
+    cin >> n >> m;
+    vi a(n);
+    vi b(m);
+    for(auto &e : a) cin >> e;
+    for(auto &e : b) cin >> e;
+
+    ll ans = 0;
+    int i = 0, j = 0;
+    while (i < n && j < m) {
+        if (a[i] < b[j]) {
+            ++i;
+        } else if (a[i] > b[j]) {
+            ++j;
+        } else {
+            ll val = a[i];
+            ll cntA = 0, cntB = 0;
+            while (i < n && a[i] == val) { ++cntA; ++i; }
+            while (j < m && b[j] == val) { ++cntB; ++j; }
+            ans += cntA * cntB;
+        }
+    }
+    cout << ans << edl;
+    
 }
 
 int main() {
