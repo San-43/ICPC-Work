@@ -31,19 +31,20 @@ void solve() {
     int r = 0;
     ll sum = 0;
     vi a(n);
-    for(int i = 0; i < n; i++) {
+    for (int i = 0; i < n; i++) {
         cin >> a[i];
-    } 
-    
-    for(int i = 0; i < n; i++) {
+    }
+
+    for (int i = 0; i < n; i++) {
         sum += a[i];
-        while(sum - a[r] >= k) {
+        while (sum - a[r] >= k) {
             sum -= a[r++];
         }
-        if(sum >= k) ans += (i - r + 1);
+        if (sum >= k)
+            ans += r + 1;
     }
     cout << ans << edl;
-}   
+}
 
 int main() {
     ios_base::sync_with_stdio(false);
