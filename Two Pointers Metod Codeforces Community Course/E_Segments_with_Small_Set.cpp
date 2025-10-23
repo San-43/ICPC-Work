@@ -40,13 +40,12 @@ void solve() {
         if(++m[a[i]] == 1) count += 1;
 
         while(count > k) {
-            m[a[j++]]--;
-            if(m[a[j]] == 0) count--;
+            if(--m[a[j++]] == 0) count--;
         }
 
-        if(count <= k) ans += i;
+        if(count <= k) ans += i - j + 1;
     }
-    cout << ans-1 << edl;
+    cout << ans << edl;
 }
 
 int main() {
