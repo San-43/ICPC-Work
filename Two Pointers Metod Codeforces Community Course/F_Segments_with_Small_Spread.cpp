@@ -24,17 +24,95 @@ constexpr int MOD = 1e9 + 7;
 constexpr int MxN = 2e5 + 5;
 constexpr int dx[4] = {1, 0, -1, 0}, dy[4] = {0, 1, 0, -1};
 
+struct s {
+    stack<ll> s1;
+    stack<ll> smin;
+    stack<ll> smax;
+
+    void push(ll x) {
+        s1.push(x);
+        if (smin.empty()) {
+            smin.push(x);
+            smax.push(x);
+        } else {
+            ll y = smin.top();
+            if (y > x)
+                smin.push(x);
+            else
+                smin.push(y);
+            y = smax.top();
+            if (y < x)
+                smax.push(x);
+            else
+                smax.push(y);
+        }
+    }
+
+    ll pop() {
+        ll x = s1.top();
+        s1.pop();
+        smin.pop();
+        smax.pop();
+        return x;
+    }
+
+    bool is_empty() {
+        return s1.empty();
+    }
+
+    ll maxx() {
+        if(smax.empty()) return -LLINF;
+        return smax.top();
+    }
+
+    ll minx() {
+        if(smin.empty()) return LLINF;
+        return smin.top();
+    }
+};
+
+::s sl, sr;
+
+void add(ll x) {
+    sr.push(x);
+}
+
+void remove() {
+    if (sl.is_empty()) {    
+        while (!sr.is_empty()) {
+            sl.push(sr.pop());
+        }
+    }
+    sl.pop();
+}
+
+ll k;
+
+bool good() {
+    ll mn = min(sl.minx(), sr.minx());
+    ll mx = max(sl.maxx(), sr.maxx());
+    return mx - mn <= k;
+}
+
 void solve() {
-    ll n, k;
-    cin >> n >> k;  
+    ll n;
+    cin >> n >> k;
 
     vi a(n);
-    for(auto &e : a) cin >> a;
+    for (auto &e : a)
+        cin >> e;
 
+    ll ans = 0;
     int j = 0;
-    for(int i = 0; i < n; i++) {
-
+    for (int i = 0; i < n; i++) {
+        add(a[i]);
+        while(!good()) {
+            remove();
+            j++;
+        }
+        ans += i - j + 1;
     }
+    cout << ans << edl;
 }
 
 int main() {
