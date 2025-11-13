@@ -25,15 +25,20 @@ constexpr int MxN = 2e5 + 5;
 constexpr int dx[4] = {1, 0, -1, 0}, dy[4] = {0, 1, 0, -1};
 
 int prime[1000005];
-vector<int> primes;
+vector<ll> primes;
 
-void sieve(int n) {
+void sieve(const int n) {
     for(int i = 2; i * i <= n; i++) {
         if(prime[i] == 0) {
-            primes.push_back(i);
             for(int j = i * i; j <= n; j += i) {
                 prime[j] = 1;
             }
+        }
+    }
+
+    for(int i = 2; i <= n; i++) {
+        if(prime[i] == 0) {
+            primes.pb(i);
         }
     }
 }
@@ -41,13 +46,13 @@ void sieve(int n) {
 void solve() {
     string s;
     cin >> s;
-    map<int, int> mp;
+    map<ll, int> mp;
     sieve(100000);
     string tmp;
     for (int i = 0; i < min(sz(s), 10); i++) {
         tmp += s[i];
     }
-    int ans = stoi(tmp);
+    ll ans = stoll(tmp);
 
     if (sz(s) > 10) {
         mp[2] = sz(s) - 10;
@@ -59,6 +64,7 @@ void solve() {
             mp[i]++;
         }
     }
+    if (ans > 1) mp[ans]++;
 
     if (sz(mp) > 0) {
         cout << sz(mp) << endl;
