@@ -21,16 +21,36 @@ constexpr int dx[4] = {1, 0, -1, 0}, dy[4] = {0, 1, 0, -1};
 void solve() {
     string s;
     cin >> s;
-    int nb, ns, nc;
-    int pb, ps, pc;
+    ll nb, ns, nc;
+    ll pb, ps, pc;
     cin >> nb >> ns >> nc >> pb >> ps >> pc;
     ll r;
     cin >> r;
 
     int sb = 0, ss = 0, sc = 0;
-    for(auot &e : s) {
+    for(const auto &e : s) {
         if(e == 'B') sb++;
+        else if (e == 'S') ss++;
+        else sc++;
     }
+    auto ok = [&](ll x) {
+        ll cb = max(0LL, x*sb - nb)  ;
+        ll cs = max(0LL, x*ss - ns)  ;
+        ll cc = max(0LL, x*sc - nc)  ;
+        ll total = cb*pb + cs*ps + cc*pc;
+
+        return total <= r;
+    };
+
+    ll lo = 0;
+    ll hi = 1e13;
+    while (lo + 1 < hi) {
+        ll mid = lo + (hi-lo)/2;
+        if (ok(mid)) lo = mid;
+        else hi = mid;
+    }
+
+    cout << lo << edl;
 }
 
 int main() {
