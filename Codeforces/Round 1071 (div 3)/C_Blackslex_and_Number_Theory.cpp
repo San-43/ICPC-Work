@@ -12,6 +12,7 @@ using vi = vector<ll>;
 #define se second
 #define pb push_back
 #define edl '\n'
+#define all(x) x.begin(), x.end()
 
 constexpr long long LLINF = 2e18;
 constexpr int INF = 2e9;
@@ -26,7 +27,7 @@ void solve() {
     for(int i = 0; i < n; i++) {
         cin >> v[i];
     }
-    sort(v.begin(), v.end());
+    sort(all(v));
     cout << max(v[0], v[1] - v[0]) << edl;
 }
 
