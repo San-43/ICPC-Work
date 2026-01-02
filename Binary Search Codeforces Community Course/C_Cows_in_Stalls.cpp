@@ -20,8 +20,33 @@ constexpr int MxN = 2e5 + 5;
 constexpr int dx[4] = {1, 0, -1, 0}, dy[4] = {0, 1, 0, -1};
 
 void solve() {
-    int n;
-    cin >> n;
+    int n, k;
+    cin >> n >> k;
+    vi a(n);
+    for (auto &e : a) cin >> e;
+
+
+
+    auto ok = [&](ll m) {
+        ll tmp = a[0];
+        ll count = 1;
+        for (int i = 1; i < n; i++) {
+            if (a[i] - tmp >= m) {
+                count++;
+                tmp = a[i];
+            }
+        }
+        return count >= k;
+    };
+
+    ll l = 0;
+    ll r = 1e13;
+    while (l + 1 < r) {
+        ll m = l + (r - l) / 2;
+        if (ok(m)) l = m;
+        else r = m;
+    }
+    cout << l << edl;
 }
 
 int main() {
