@@ -25,34 +25,6 @@ constexpr int dyy[8] = { 0,  1,  1,  1,  0, -1, -1, -1};
 void solve() {
     int n;
     cin >> n;
-    map<ll, set<int>> mp;
-    vi a(n);
-    for(int i = 0; i < n; i++) {
-        cin >> a[i];
-        mp[a[i]].insert(i);
-    }
-
-    while(!mp.empty()) {
-        auto [fst, snd] = *mp.begin();
-        while (sz(snd) >= 2) {
-            int i = *snd.begin();
-            snd.erase(snd.begin());
-            int j = *snd.begin();
-            snd.erase(snd.begin());
-            a[i] = 0;
-            a[j] = 2*fst;
-            mp[2*fst].insert(j);
-        }
-        mp.erase(mp.begin());
-    }
-
-    vi ans;
-    for (const auto i : a) {
-        if (i > 0) ans.pb(i);
-    }
-
-    cout << sz(ans) << edl;
-    for (const auto i : ans) cout << i << ' ';
 }
 
 int main() {
