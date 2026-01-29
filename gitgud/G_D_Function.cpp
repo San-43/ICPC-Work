@@ -22,9 +22,29 @@ constexpr int dxx[8] = { 1,  1,  0, -1, -1, -1,  0,  1};
 constexpr int dyy[8] = { 0,  1,  1,  1,  0, -1, -1, -1};
 
 
+ll powMod(ll x, ll n, ll M) {
+    ll res = 1;
+
+    while(n >= 1) {
+        
+        if(n & 1) {
+            res = (res * x) % M;
+            n--;  
+        }
+        
+        else {
+            x = (x * x) % M;
+            n /= 2;
+        }
+    }
+    return res;
+}
+
 void solve() {
-    int n;
-    cin >> n;
+    int l, r, k;
+    cin >> l >> r >> k;
+    cout << ((powMod(9/k+1, r, MOD) - powMod(9/k+1, l, MOD) + MOD) % MOD)  << edl; 
+    
 }
 
 int main() {
@@ -32,7 +52,7 @@ int main() {
     cin.tie(nullptr);
 
     int t = 1;
-    // cin >> t;
+    cin >> t;
     while (t--) {
         solve();
     }
