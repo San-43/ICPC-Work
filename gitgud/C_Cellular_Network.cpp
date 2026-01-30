@@ -38,7 +38,6 @@ void solve() {
         b.insert(x);
     }
 
-
     ll ans = 0;
 
     for(auto i : a) {
