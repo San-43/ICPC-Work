@@ -28,9 +28,31 @@ constexpr int dxx[8] = { 1,  1,  0, -1, -1, -1,  0,  1};
 constexpr int dyy[8] = { 0,  1,  1,  1,  0, -1, -1, -1};
 
 
+// n = 5
+// 5 9 12 14 15
+// n * (n + 1) / 2    5 * (5 + 1) / 2 = 30 / 2 = 15
+// 1 3 6 10 15
+
+// x - sum
+// 5 - 0, 9 - 5, 12 - 9, 14 - 12, 15 - 14
+// 
+
 void solve() {
-    int n;
+    ll n;
     cin >> n;
+    set<ll> s;
+    ll sum = 0;
+    for (int i = 0; i < n - 1; i++) {
+        ll x;
+        cin >> x;
+        if(x - sum <= n) s.insert(x - sum); 
+        sum = x;
+    }
+    if(sz(s) == n - 2 + (sum != (n * (n+1) / 2))) {
+        cout << "YES" << edl;
+        return;
+    } 
+    cout << "NO" << edl;
 }
 
 int main() {
@@ -38,7 +60,7 @@ int main() {
     cin.tie(nullptr);
 
     int t = 1;
-    // cin >> t;
+    cin >> t; 
     while (t--) {
         solve();
     }
