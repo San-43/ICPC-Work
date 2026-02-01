@@ -1,7 +1,13 @@
 #pragma GCC optimize("Ofast,unroll-loops,no-stack-protector")
 #include <bits/stdc++.h>
-
+#include<ext/pb_ds/assoc_container.hpp>
+#include<ext/pb_ds/tree_policy.hpp>
+using namespace __gnu_pbds;
 using namespace std;
+
+template <typename T> using o_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
+template <typename T, typename R> using o_map = tree<T, R, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
+
 
 using ll = long long;
 using ull = unsigned long long;
@@ -13,20 +19,34 @@ using vi = vector<ll>;
 #define pb push_back
 #define edl '\n'
 
-template <typename T>
-void fill_seq(vector<T> &v, T start = 1) {
-    iota(v.begin(), v.end(), start);
-}
-
 constexpr long long LLINF = 2e18;
 constexpr int INF = 2e9;
 constexpr int MOD = 1e9 + 7;
 constexpr int MxN = 2e5 + 5;
 constexpr int dx[4] = {1, 0, -1, 0}, dy[4] = {0, 1, 0, -1};
+constexpr int dxx[8] = { 1,  1,  0, -1, -1, -1,  0,  1};
+constexpr int dyy[8] = { 0,  1,  1,  1,  0, -1, -1, -1};
+
 
 void solve() {
     int n;
     cin >> n;
+    vector<pair<int, int>> a(n);
+    for (int i = 0; i < n; i++) {
+        cin >> a[i].fi >> a[i].se;
+    }
+
+    sort(a.begin(), a.end());
+
+    ll ans = 0;
+    o_set<int> s;
+    for (int i = 0; i < n; i++) {
+        ans += sz(s) - s.order_of_key(a[i].se);
+
+        s.insert(a[i].se);
+    }
+
+    cout << ans << edl;
 }
 
 int main() {
