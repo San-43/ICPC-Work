@@ -32,8 +32,8 @@ ll dfs(int v, vector<ll> &a) {
     if(g[v].empty()) return a[v];
 
     ll s = 0;
-    for(int i = 0; i < sz(g[v]); i++) {
-        s += dfs(g[v][i], a);
+    for(int i : g[v]) {
+        s += dfs(i, a);
     }
 
     return ans[v] = min(a[v], s);
