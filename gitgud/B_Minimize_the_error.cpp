@@ -29,8 +29,38 @@ constexpr int dyy[8] = { 0,  1,  1,  1,  0, -1, -1, -1};
 
 
 void solve() {
-    int n;
-    cin >> n;
+    int n, k1,k2;
+    cin >> n >> k1 >> k2;
+
+    ll k = k1 + k2;
+    vi a(n), b(n);
+    for (auto &e : a) cin >> e;
+
+    priority_queue<ll> pq;
+    ll e = 0;
+    for (int i = 0; i < n; i++) {
+        cin >> b[i];
+        ll tmp = abs(a[i]-b[i]);
+        pq.push(tmp);
+        e += tmp * tmp;
+    }
+
+    while (e > 0) {
+        ll x = pq.top();
+        pq.pop();
+        if (k > 0) {
+            e = e - (2*x - 1);
+            x--;
+            k--;
+            pq.push(x);
+        } else {
+            break;
+        }
+    }
+    if (k > 0 && k & 1) {
+        e += 1;
+    }
+    cout << e << edl;
 }
 
 int main() {
