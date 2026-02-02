@@ -27,6 +27,9 @@ constexpr int dx[4] = {1, 0, -1, 0}, dy[4] = {0, 1, 0, -1};
 constexpr int dxx[8] = { 1,  1,  0, -1, -1, -1,  0,  1};
 constexpr int dyy[8] = { 0,  1,  1,  1,  0, -1, -1, -1};
 
+// tmp^2
+// (tmp - 1)^2 = tmp^2 - 2tmp + 1
+// tmp^2 
 
 void solve() {
     int n, k1,k2;
@@ -49,7 +52,7 @@ void solve() {
         ll x = pq.top();
         pq.pop();
         if (k > 0) {
-            e = e - (2*x - 1);
+            e = e - 2*x + 1;
             x--;
             k--;
             pq.push(x);
