@@ -27,19 +27,54 @@ constexpr int dx[4] = {1, 0, -1, 0}, dy[4] = {0, 1, 0, -1};
 constexpr int dxx[8] = { 1,  1,  0, -1, -1, -1,  0,  1};
 constexpr int dyy[8] = { 0,  1,  1,  1,  0, -1, -1, -1};
 
-vector<int> p;
-vector<bool> ok;
-void sieve(int n) {
-    
+vector<vector<int>> p(MxN + 5);
+void sieve() {
+    vector<bool> ok(MxN + 5, true);
+    for(int i = 2; i <= MxN; i++) {
+        if(ok[i]) {
+            for(int j = i; j <= MxN; j += i) {
+                ok[j] = false;
+                p[j].push_back(i);
+            }
+        }
+    }
 }
-
 
 void solve() {
     int n;
     cin >> n;
-    vector<int> a(n+1);
-    vector<int> b(n+1);
-}
+    vector<int> a(n+5);
+    vector<int> b(n+5);
+    for (int i = 1; i <= n; i++) {
+        cin >> a[i];
+    }
+    for (int i = 1; i <= n; i++) {
+        cin >> b[i];
+    }
+    
+    map<int, int> mp;
+    int ans = 2;
+    for (int i = 1; i <= n; i++) {
+        for (auto e : p[a[i]]) {
+            if (mp[e] > 0) {
+                cout << 0 << edl;
+                return;
+            }
+            mp[e]++;
+        }
+    }
+
+    for(int i = 1; i <= n; i++) {
+        for (auto e : p[a[i]]) mp[e]--;
+        for(auto e : p[a[i] + 1]) {
+            if(mp[e] > 0) ans = 1;
+            
+        }
+        for(auto &e : p[a[i]]) mp[e]++;
+    }
+
+    cout << ans << edl;
+}   
 
 int main() {
     ios_base::sync_with_stdio(false);
@@ -47,6 +82,7 @@ int main() {
 
     int t = 1;
     cin >> t;
+    sieve();
     while (t--) {
         solve();
     }
