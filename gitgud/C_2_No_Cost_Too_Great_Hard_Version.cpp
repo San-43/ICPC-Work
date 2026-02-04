@@ -43,15 +43,15 @@ void sieve() {
 void solve() {
     int n;
     cin >> n;
-    vector<int> a(n+5);
-    vector<int> b(n+5);
+    vector<int> a(n);
+    vector<int> b(n);
 
-    for (int i = 1; i <= n; i++) {
+    for (int i = 0; i < n; i++) {
         cin >> a[i];
     }
     int minb = INF;
     int iminb = 0;
-    for (int i = 1; i <= n; i++) {
+    for (int i = 0; i < n; i++) {
         cin >> b[i];
         if(b[i] < minb) {
             minb = b[i];
@@ -60,8 +60,8 @@ void solve() {
     }
     
     map<int, int> mp;
-    int ans = 2;
-    for (int i = 1; i <= n; i++) {
+    ll ans = LLINF;
+    for (int i = 0; i < n; i++) {
         for (auto e : p[a[i]]) {
             if (mp[e] > 0) {
                 cout << 0 << edl;
@@ -70,16 +70,28 @@ void solve() {
             mp[e]++;
         }
     }
+    auto b2 = b;
+    sort(b2.begin(), b2.end());
 
-    for(int i = 1; i <= n; i++) {
+    ans = b2[0] + b2[1];
+
+    for(int i = 0; i < n; i++) {
         for (auto e : p[a[i]]) mp[e]--;
         for(auto e : p[a[i] + 1]) {
-            if(mp[e] > 0) ans = 1;
-            
+            if(mp[e] > 0) ans = min(ans, 1LL * b[i]);
         }
         for(auto &e : p[a[i]]) mp[e]++;
     }
 
+    for (auto e : p[a[iminb]]) mp[e]--;
+
+    for(auto [prm, frc] : mp) {
+        if (frc > 0) {
+            ll tmp = prm - (a[iminb] % prm); /// cuanto le falta a a[iminb] para ser divisible por it.fi O_o
+            if(tmp == prm) tmp = 0;
+            ans = min(1LL * ans, 1LL * tmp * b2[0]);
+        }
+    }
     cout << ans << edl;
 }   
 
