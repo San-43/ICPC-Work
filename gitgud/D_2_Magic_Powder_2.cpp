@@ -29,8 +29,27 @@ constexpr int dyy[8] = { 0,  1,  1,  1,  0, -1, -1, -1};
 
 
 void solve() {
-    int n;
-    cin >> n;
+    ll n, k;
+    cin >> n >> k;
+    vi a(n), b(n);
+    for (auto &e : a) cin >> e;
+    for (auto &e : b) cin >> e;
+
+    auto ok = [&](ll x) {
+        __int128_t total = 0;
+        for(int i = 0; i < n; i++) {
+            total += max(0LL, x*a[i] - b[i]);
+        }
+        return total <= k;
+    };
+
+    ll l = 0, r = 1e10;
+    while (l + 1 < r) {
+        ll m = l + (r - l) / 2;
+        if (ok(m)) l = m;
+        else r = m;
+    }
+    cout << l << edl;
 }
 
 int main() {
