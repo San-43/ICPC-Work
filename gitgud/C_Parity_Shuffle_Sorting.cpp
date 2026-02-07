@@ -32,7 +32,29 @@ void solve() {
     int n;
     cin >> n;
     vector<int> a(n);
+    vector<pair<int,int>> ans;
     for(auto &e : a) cin >> e;
+
+    if (is_sorted(a.begin(), a.end())) {
+        cout << 0 << edl;
+        return;
+    }
+
+    if ((a[0] + a[n - 1]) & 1) a[n - 1] = a[0];
+    else a[0] = a[n - 1];
+    ans.emplace_back(0, n-1);
+    for (int i = 1; i < n - 1; i++) {
+        if ((a[0] + a[i]) & 1) {
+            ans.emplace_back(0, i);
+        } else {
+            ans.emplace_back(i, n - 1);
+        }
+    }
+
+    cout << sz(ans) << edl;
+    for(auto [i, j] : ans) {
+        cout << i+1 << " " << j+1 << edl;
+    }
 }
 
 int main() {
