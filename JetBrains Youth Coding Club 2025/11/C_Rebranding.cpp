@@ -33,19 +33,24 @@ void solve() {
     cin >> n >> m;
     string s;
     cin >> s;
-    unordered_map<char, char> mp;
-    for(char c = 'a'; c <= 'z'; c++) {
-        mp[c] = c;
-    }
+    vector<int> a(26), b(26);
+
+    iota(a.begin(), a.end(), 0);
+    iota(b.begin(), b.end(), 0);
+
     while(m--) {
         char x, y;
         cin >> x >> y;
-        mp[x] = y;
-        mp[y] = x;
+        x -= 'a';
+        y -= 'a';
+        if(x == y) continue;
+
+        swap(a[b[x]], a[b[y]]);
+        swap(b[x], b[y]);
+        
     }
-    for(auto c : s) {
-        cout << mp[c];
-    }
+    for(const auto c : s) cout << static_cast<char>('a' + a[c - 'a']);
+
     cout << edl;
 }
 
