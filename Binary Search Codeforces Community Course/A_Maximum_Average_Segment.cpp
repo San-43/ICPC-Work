@@ -31,37 +31,6 @@ void solve() {
     for (int i = 1; i <= n; i++) {
         cin >> a[i];
     }
-
-    int ans1 = 0;
-    int ans2 = 0;
-    auto ok = [&](ll m) {
-        vi p(n + 1);
-        vi mn(n + 1, LLINF);
-        for (int i = 1; i <= n; i++) {
-            p[i] = p[i - 1] + a[i] - m;
-            mn[i] = min(mn[i - 1], p[i]);
-        }
-
-        for (int i = 2; i <= n; i++) {
-            if (i - d) {
-                if (mn[i - d] <= p[i]) {
-                    ans1 = i - d + 1;
-                    ans2 = i + 1;
-                    return true;
-                }
-            }
-        }
-        return false;
-    };
-
-
-    ll l = -1, r = LLINF;
-    while (l + 1 < r) {
-        ll m = l + (r - l) / 2;
-        if (ok(m)) l = m;
-        else r = m;
-    }
-    cout << ans1 << " " << ans2 << edl;
 }
 
 int main() {
