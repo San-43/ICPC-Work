@@ -27,6 +27,7 @@ constexpr int dx[4] = {1, 0, -1, 0}, dy[4] = {0, 1, 0, -1};
 void solve() {
     int n, d;
     cin >> n >> d;
+    vi a(n + 1);
 
 }
 
